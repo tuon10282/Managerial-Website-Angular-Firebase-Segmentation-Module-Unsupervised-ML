@@ -1,0 +1,474 @@
+<div class="container">
+  <h1 class="title">Customer Management</h1>
+  
+  <!-- Loading state -->
+  <div *ngIf="loading" class="loading">Loading customers...</div>
+  
+  <!-- Error state -->
+  <div *ngIf="error" class="error">{{ error }}</div>
+  
+  <!-- Customer table -->
+  <div class="table-container" *ngIf="!loading && !error" (click)="closeAllDropdowns()">
+    <table class="customer-table">
+      <thead>
+        <tr>
+          <th>
+            <div class="header-cell">
+              <span>ID</span>
+              <div class="filter-container">
+                <button 
+                  class="filter-btn" 
+                  [class.active]="hasActiveFilter('user_id')"
+                  (click)="toggleFilterDropdown('user_id', $event)">
+                  ▼
+                </button>
+                <div 
+                  class="filter-dropdown" 
+                  *ngIf="filters.user_id.isDropdownOpen"
+                  (click)="$event.stopPropagation()">
+                  <div class="filter-header">
+                    <input 
+                      type="text" 
+                      placeholder="Search ID..."
+                      [value]="filters.user_id.searchTerm"
+                      (input)="onSearchChange('user_id', $event.target.value)"
+                      class="filter-search">
+                  </div>
+                  <div class="filter-actions">
+                    <button (click)="selectAll('user_id')" class="filter-action-btn">Select All</button>
+                    <button (click)="deselectAll('user_id')" class="filter-action-btn">Deselect All</button>
+                    <button (click)="clearFilter('user_id')" class="filter-action-btn">Clear</button>
+                  </div>
+                  <div class="filter-values">
+                    <label 
+                      *ngFor="let value of getFilteredUniqueValues('user_id')" 
+                      class="filter-value">
+                      <input 
+                        type="checkbox" 
+                        [checked]="filters.user_id.selectedValues.has(value)"
+                        (change)="toggleValue('user_id', value)">
+                      <span>{{ value }}</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </th>
+          <th>
+            <div class="header-cell">
+              <span>Name</span>
+              <div class="filter-container">
+                <button 
+                  class="filter-btn" 
+                  [class.active]="hasActiveFilter('name')"
+                  (click)="toggleFilterDropdown('name', $event)">
+                  ▼
+                </button>
+                <div 
+                  class="filter-dropdown" 
+                  *ngIf="filters.name.isDropdownOpen"
+                  (click)="$event.stopPropagation()">
+                  <div class="filter-header">
+                    <input 
+                      type="text" 
+                      placeholder="Search Name..."
+                      [value]="filters.name.searchTerm"
+                      (input)="onSearchChange('name', $event.target.value)"
+                      class="filter-search">
+                  </div>
+                  <div class="filter-actions">
+                    <button (click)="selectAll('name')" class="filter-action-btn">Select All</button>
+                    <button (click)="deselectAll('name')" class="filter-action-btn">Deselect All</button>
+                    <button (click)="clearFilter('name')" class="filter-action-btn">Clear</button>
+                  </div>
+                  <div class="filter-values">
+                    <label 
+                      *ngFor="let value of getFilteredUniqueValues('name')" 
+                      class="filter-value">
+                      <input 
+                        type="checkbox" 
+                        [checked]="filters.name.selectedValues.has(value)"
+                        (change)="toggleValue('name', value)">
+                      <span>{{ value }}</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </th>
+          <th>
+            <div class="header-cell">
+              <span>Email</span>
+              <div class="filter-container">
+                <button 
+                  class="filter-btn" 
+                  [class.active]="hasActiveFilter('email')"
+                  (click)="toggleFilterDropdown('email', $event)">
+                  ▼
+                </button>
+                <div 
+                  class="filter-dropdown" 
+                  *ngIf="filters.email.isDropdownOpen"
+                  (click)="$event.stopPropagation()">
+                  <div class="filter-header">
+                    <input 
+                      type="text" 
+                      placeholder="Search Email..."
+                      [value]="filters.email.searchTerm"
+                      (input)="onSearchChange('email', $event.target.value)"
+                      class="filter-search">
+                  </div>
+                  <div class="filter-actions">
+                    <button (click)="selectAll('email')" class="filter-action-btn">Select All</button>
+                    <button (click)="deselectAll('email')" class="filter-action-btn">Deselect All</button>
+                    <button (click)="clearFilter('email')" class="filter-action-btn">Clear</button>
+                  </div>
+                  <div class="filter-values">
+                    <label 
+                      *ngFor="let value of getFilteredUniqueValues('email')" 
+                      class="filter-value">
+                      <input 
+                        type="checkbox" 
+                        [checked]="filters.email.selectedValues.has(value)"
+                        (change)="toggleValue('email', value)">
+                      <span>{{ value }}</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </th>
+          <th>
+            <div class="header-cell">
+              <span>Phone</span>
+              <div class="filter-container">
+                <button 
+                  class="filter-btn" 
+                  [class.active]="hasActiveFilter('phone')"
+                  (click)="toggleFilterDropdown('phone', $event)">
+                  ▼
+                </button>
+                <div 
+                  class="filter-dropdown" 
+                  *ngIf="filters.phone.isDropdownOpen"
+                  (click)="$event.stopPropagation()">
+                  <div class="filter-header">
+                    <input 
+                      type="text" 
+                      placeholder="Search Phone..."
+                      [value]="filters.phone.searchTerm"
+                      (input)="onSearchChange('phone', $event.target.value)"
+                      class="filter-search">
+                  </div>
+                  <div class="filter-actions">
+                    <button (click)="selectAll('phone')" class="filter-action-btn">Select All</button>
+                    <button (click)="deselectAll('phone')" class="filter-action-btn">Deselect All</button>
+                    <button (click)="clearFilter('phone')" class="filter-action-btn">Clear</button>
+                  </div>
+                  <div class="filter-values">
+                    <label 
+                      *ngFor="let value of getFilteredUniqueValues('phone')" 
+                      class="filter-value">
+                      <input 
+                        type="checkbox" 
+                        [checked]="filters.phone.selectedValues.has(value)"
+                        (change)="toggleValue('phone', value)">
+                      <span>{{ value }}</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </th>
+          <th>
+            <div class="header-cell">
+              <span>Gender</span>
+              <div class="filter-container">
+                <button 
+                  class="filter-btn" 
+                  [class.active]="hasActiveFilter('gender')"
+                  (click)="toggleFilterDropdown('gender', $event)">
+                  ▼
+                </button>
+                <div 
+                  class="filter-dropdown" 
+                  *ngIf="filters.gender.isDropdownOpen"
+                  (click)="$event.stopPropagation()">
+                  <div class="filter-header">
+                    <input 
+                      type="text" 
+                      placeholder="Search Gender..."
+                      [value]="filters.gender.searchTerm"
+                      (input)="onSearchChange('gender', $event.target.value)"
+                      class="filter-search">
+                  </div>
+                  <div class="filter-actions">
+                    <button (click)="selectAll('gender')" class="filter-action-btn">Select All</button>
+                    <button (click)="deselectAll('gender')" class="filter-action-btn">Deselect All</button>
+                    <button (click)="clearFilter('gender')" class="filter-action-btn">Clear</button>
+                  </div>
+                  <div class="filter-values">
+                    <label 
+                      *ngFor="let value of getFilteredUniqueValues('gender')" 
+                      class="filter-value">
+                      <input 
+                        type="checkbox" 
+                        [checked]="filters.gender.selectedValues.has(value)"
+                        (change)="toggleValue('gender', value)">
+                      <span>{{ value }}</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </th>
+          <th>
+            <div class="header-cell">
+              <span>Loyalty Points</span>
+              <div class="filter-container">
+                <button 
+                  class="filter-btn" 
+                  [class.active]="hasActiveFilter('loyalty_points')"
+                  (click)="toggleFilterDropdown('loyalty_points', $event)">
+                  ▼
+                </button>
+                <div 
+                  class="filter-dropdown" 
+                  *ngIf="filters.loyalty_points.isDropdownOpen"
+                  (click)="$event.stopPropagation()">
+                  <div class="filter-header">
+                    <input 
+                      type="text" 
+                      placeholder="Search Points..."
+                      [value]="filters.loyalty_points.searchTerm"
+                      (input)="onSearchChange('loyalty_points', $event.target.value)"
+                      class="filter-search">
+                  </div>
+                  <div class="filter-actions">
+                    <button (click)="selectAll('loyalty_points')" class="filter-action-btn">Select All</button>
+                    <button (click)="deselectAll('loyalty_points')" class="filter-action-btn">Deselect All</button>
+                    <button (click)="clearFilter('loyalty_points')" class="filter-action-btn">Clear</button>
+                  </div>
+                  <div class="filter-values">
+                    <label 
+                      *ngFor="let value of getFilteredUniqueValues('loyalty_points')" 
+                      class="filter-value">
+                      <input 
+                        type="checkbox" 
+                        [checked]="filters.loyalty_points.selectedValues.has(value)"
+                        (change)="toggleValue('loyalty_points', value)">
+                      <span>{{ value }}</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </th>
+          <th>
+            <div class="header-cell">
+              <span>Address</span>
+              <div class="filter-container">
+                <button 
+                  class="filter-btn" 
+                  [class.active]="hasActiveFilter('address')"
+                  (click)="toggleFilterDropdown('address', $event)">
+                  ▼
+                </button>
+                <div 
+                  class="filter-dropdown" 
+                  *ngIf="filters.address.isDropdownOpen"
+                  (click)="$event.stopPropagation()">
+                  <div class="filter-header">
+                    <input 
+                      type="text" 
+                      placeholder="Search Address..."
+                      [value]="filters.address.searchTerm"
+                      (input)="onSearchChange('address', $event.target.value)"
+                      class="filter-search">
+                  </div>
+                  <div class="filter-actions">
+                    <button (click)="selectAll('address')" class="filter-action-btn">Select All</button>
+                    <button (click)="deselectAll('address')" class="filter-action-btn">Deselect All</button>
+                    <button (click)="clearFilter('address')" class="filter-action-btn">Clear</button>
+                  </div>
+                  <div class="filter-values">
+                    <label 
+                      *ngFor="let value of getFilteredUniqueValues('address')" 
+                      class="filter-value">
+                      <input 
+                        type="checkbox" 
+                        [checked]="filters.address.selectedValues.has(value)"
+                        (change)="toggleValue('address', value)">
+                      <span>{{ value }}</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customer of filteredCustomers">
+          <td>{{ customer.user_id }}</td>
+          <td>{{ customer.name }}</td>
+          <td>{{ customer.email }}</td>
+          <td>{{ customer.phone }}</td>
+          <td>{{ customer.gender }}</td>
+          <td>{{ customer.loyalty_points }}</td>
+          <td>{{ customer.address }}</td>
+          <td class="actions">
+            <button (click)="viewCustomerDetails(customer)" class="action-btn view-btn">
+              View Details
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="filteredCustomers.length === 0">
+          <td colspan="8" class="no-results">No customers found</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal hiển thị khi isModalOpen = true -->
+<div class="modal-overlay" *ngIf="isModalOpen">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h2>{{ isEditing ? 'Chỉnh sửa khách hàng' : 'Thông tin khách hàng' }}</h2>
+      <button class="close-btn" (click)="closeModal()">×</button>
+    </div>
+    
+    <div class="modal-body">
+      <div class="customer-info">
+        <div class="form-group">
+          <label>User ID:</label>
+          <input [value]="selectedCustomer?.user_id" class="read-only" readonly />
+        </div>
+
+        <div class="form-group">
+          <label>Họ tên:</label>
+          <input 
+            *ngIf="!isEditing" 
+            [value]="selectedCustomer?.name" 
+            readonly />
+          <input 
+            *ngIf="isEditing" 
+            [(ngModel)]="editingCustomer!.name" 
+            placeholder="Nhập họ tên" />
+        </div>
+
+        <div class="form-group">
+          <label>Email:</label>
+          <input 
+            *ngIf="!isEditing" 
+            [value]="selectedCustomer?.email" 
+            readonly />
+          <input 
+            *ngIf="isEditing" 
+            [(ngModel)]="editingCustomer!.email" 
+            type="email" 
+            placeholder="Nhập email" />
+        </div>
+
+        <div class="form-group">
+          <label>Số điện thoại:</label>
+          <input 
+            *ngIf="!isEditing" 
+            [value]="selectedCustomer?.phone" 
+            readonly />
+          <input 
+            *ngIf="isEditing" 
+            [(ngModel)]="editingCustomer!.phone" 
+            placeholder="Nhập số điện thoại" />
+        </div>
+
+        <div class="form-group">
+          <label>Giới tính:</label>
+          <input 
+            *ngIf="!isEditing" 
+            [value]="selectedCustomer?.gender" 
+            readonly />
+          <select 
+            *ngIf="isEditing" 
+            [(ngModel)]="editingCustomer!.gender">
+            <option value="">Chọn giới tính</option>
+            <option value="Nam">Nam</option>
+            <option value="Nữ">Nữ</option>
+            <option value="Khác">Khác</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Ngày sinh:</label>
+          <input 
+            *ngIf="!isEditing" 
+            [value]="selectedCustomer?.dob" 
+            readonly />
+          <input 
+            *ngIf="isEditing" 
+            [(ngModel)]="editingCustomer!.dob" 
+            type="date" />
+        </div>
+
+        <div class="form-group">
+          <label>Ngày tạo:</label>
+          <input [value]="selectedCustomer?.created_at" readonly class="read-only" />
+        </div>
+
+        <div class="form-group">
+          <label>Lần đăng nhập cuối:</label>
+          <input [value]="selectedCustomer?.last_login" readonly class="read-only" />
+        </div>
+
+        <div class="form-group">
+          <label>Điểm tích lũy:</label>
+          <input 
+            *ngIf="!isEditing" 
+            [value]="selectedCustomer?.loyalty_points" 
+            readonly />
+          <input 
+            *ngIf="isEditing" 
+            [(ngModel)]="editingCustomer!.loyalty_points" 
+            type="number" 
+            min="0" 
+            placeholder="Nhập điểm tích lũy" />
+        </div>
+
+        <div class="form-group">
+          <label>Địa chỉ:</label>
+          <textarea 
+            *ngIf="!isEditing" 
+            [value]="selectedCustomer?.address" 
+            readonly></textarea>
+          <textarea 
+            *ngIf="isEditing" 
+            [(ngModel)]="editingCustomer!.address" 
+            placeholder="Nhập địa chỉ" 
+            rows="3"></textarea>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Modal Footer -->
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="closeModal()">Đóng</button>
+      
+      <button 
+        *ngIf="!isEditing" 
+        class="btn btn-primary" 
+        (click)="toggleEdit()">
+        Chỉnh sửa
+      </button>
+      
+      <div *ngIf="isEditing" class="edit-buttons">
+        <button class="btn btn-success" (click)="saveCustomer()">Lưu</button>
+        <button class="btn btn-secondary" (click)="toggleEdit()">Hủy</button>
+      </div>
+      
+      <button class="btn btn-danger" (click)="deleteCustomerFromModal()">Xóa</button>
+    </div>
+  </div>
+</div>
+

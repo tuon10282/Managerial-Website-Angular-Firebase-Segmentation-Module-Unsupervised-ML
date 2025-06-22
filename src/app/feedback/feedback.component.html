@@ -1,0 +1,385 @@
+<div class="container">
+  <h1 class="title">Feedback Management</h1>
+  
+  <!-- Loading state -->
+  <div *ngIf="loading" class="loading">Loading feedback...</div>
+  
+  <!-- Error state -->
+  <div *ngIf="error" class="error">{{ error }}</div>
+  
+  <!-- Feedback table -->
+  <div class="table-container" *ngIf="!loading && !error" (click)="closeAllDropdowns()">
+    <table class="customer-table">
+      <thead>
+        <tr>
+          <th>
+            <div class="header-cell">
+              <span>Feedback ID</span>
+              <div class="filter-container">
+                <button 
+                  class="filter-btn" 
+                  [class.active]="hasActiveFilter('feedback_id')"
+                  (click)="toggleFilterDropdown('feedback_id', $event)">
+                  ▼
+                </button>
+                <div 
+                  class="filter-dropdown" 
+                  *ngIf="filters.feedback_id.isDropdownOpen"
+                  (click)="$event.stopPropagation()">
+                  <div class="filter-header">
+                    <input 
+                      type="text" 
+                      placeholder="Search Feedback ID..."
+                      [value]="filters.feedback_id.searchTerm"
+                      (input)="onSearchChange('feedback_id', $event.target.value)"
+                      class="filter-search">
+                  </div>
+                  <div class="filter-actions">
+                    <button (click)="selectAll('feedback_id')" class="filter-action-btn">Select All</button>
+                    <button (click)="deselectAll('feedback_id')" class="filter-action-btn">Deselect All</button>
+                    <button (click)="clearFilter('feedback_id')" class="filter-action-btn">Clear</button>
+                  </div>
+                  <div class="filter-values">
+                    <label 
+                      *ngFor="let value of getFilteredUniqueValues('feedback_id')" 
+                      class="filter-value">
+                      <input 
+                        type="checkbox" 
+                        [checked]="filters.feedback_id.selectedValues.has(value)"
+                        (change)="toggleValue('feedback_id', value)">
+                      <span>{{ value }}</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </th>
+          <th>
+            <div class="header-cell">
+              <span>User ID</span>
+              <div class="filter-container">
+                <button 
+                  class="filter-btn" 
+                  [class.active]="hasActiveFilter('user_id')"
+                  (click)="toggleFilterDropdown('user_id', $event)">
+                  ▼
+                </button>
+                <div 
+                  class="filter-dropdown" 
+                  *ngIf="filters.user_id.isDropdownOpen"
+                  (click)="$event.stopPropagation()">
+                  <div class="filter-header">
+                    <input 
+                      type="text" 
+                      placeholder="Search User ID..."
+                      [value]="filters.user_id.searchTerm"
+                      (input)="onSearchChange('user_id', $event.target.value)"
+                      class="filter-search">
+                  </div>
+                  <div class="filter-actions">
+                    <button (click)="selectAll('user_id')" class="filter-action-btn">Select All</button>
+                    <button (click)="deselectAll('user_id')" class="filter-action-btn">Deselect All</button>
+                    <button (click)="clearFilter('user_id')" class="filter-action-btn">Clear</button>
+                  </div>
+                  <div class="filter-values">
+                    <label 
+                      *ngFor="let value of getFilteredUniqueValues('user_id')" 
+                      class="filter-value">
+                      <input 
+                        type="checkbox" 
+                        [checked]="filters.user_id.selectedValues.has(value)"
+                        (change)="toggleValue('user_id', value)">
+                      <span>{{ value }}</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </th>
+          <th>
+            <div class="header-cell">
+              <span>Product ID</span>
+              <div class="filter-container">
+                <button 
+                  class="filter-btn" 
+                  [class.active]="hasActiveFilter('product_id')"
+                  (click)="toggleFilterDropdown('product_id', $event)">
+                  ▼
+                </button>
+                <div 
+                  class="filter-dropdown" 
+                  *ngIf="filters.product_id.isDropdownOpen"
+                  (click)="$event.stopPropagation()">
+                  <div class="filter-header">
+                    <input 
+                      type="text" 
+                      placeholder="Search Product ID..."
+                      [value]="filters.product_id.searchTerm"
+                      (input)="onSearchChange('product_id', $event.target.value)"
+                      class="filter-search">
+                  </div>
+                  <div class="filter-actions">
+                    <button (click)="selectAll('product_id')" class="filter-action-btn">Select All</button>
+                    <button (click)="deselectAll('product_id')" class="filter-action-btn">Deselect All</button>
+                    <button (click)="clearFilter('product_id')" class="filter-action-btn">Clear</button>
+                  </div>
+                  <div class="filter-values">
+                    <label 
+                      *ngFor="let value of getFilteredUniqueValues('product_id')" 
+                      class="filter-value">
+                      <input 
+                        type="checkbox" 
+                        [checked]="filters.product_id.selectedValues.has(value)"
+                        (change)="toggleValue('product_id', value)">
+                      <span>{{ value }}</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </th>
+          <th>
+            <div class="header-cell">
+              <span>Content</span>
+              <div class="filter-container">
+                <button 
+                  class="filter-btn" 
+                  [class.active]="hasActiveFilter('content')"
+                  (click)="toggleFilterDropdown('content', $event)">
+                  ▼
+                </button>
+                <div 
+                  class="filter-dropdown" 
+                  *ngIf="filters.content.isDropdownOpen"
+                  (click)="$event.stopPropagation()">
+                  <div class="filter-header">
+                    <input 
+                      type="text" 
+                      placeholder="Search Content..."
+                      [value]="filters.content.searchTerm"
+                      (input)="onSearchChange('content', $event.target.value)"
+                      class="filter-search">
+                  </div>
+                  <div class="filter-actions">
+                    <button (click)="selectAll('content')" class="filter-action-btn">Select All</button>
+                    <button (click)="deselectAll('content')" class="filter-action-btn">Deselect All</button>
+                    <button (click)="clearFilter('content')" class="filter-action-btn">Clear</button>
+                  </div>
+                  <div class="filter-values">
+                    <label 
+                      *ngFor="let value of getFilteredUniqueValues('content')" 
+                      class="filter-value">
+                      <input 
+                        type="checkbox" 
+                        [checked]="filters.content.selectedValues.has(value)"
+                        (change)="toggleValue('content', value)">
+                      <span>{{ getContentPreview(value, 30) }}</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </th>
+          <th>
+            <div class="header-cell">
+              <span>Rating</span>
+              <div class="filter-container">
+                <button 
+                  class="filter-btn" 
+                  [class.active]="hasActiveFilter('ratings')"
+                  (click)="toggleFilterDropdown('ratings', $event)">
+                  ▼
+                </button>
+                <div 
+                  class="filter-dropdown" 
+                  *ngIf="filters.ratings.isDropdownOpen"
+                  (click)="$event.stopPropagation()">
+                  <div class="filter-header">
+                    <input 
+                      type="text" 
+                      placeholder="Search Rating..."
+                      [value]="filters.ratings.searchTerm"
+                      (input)="onSearchChange('ratings', $event.target.value)"
+                      class="filter-search">
+                  </div>
+                  <div class="filter-actions">
+                    <button (click)="selectAll('ratings')" class="filter-action-btn">Select All</button>
+                    <button (click)="deselectAll('ratings')" class="filter-action-btn">Deselect All</button>
+                    <button (click)="clearFilter('ratings')" class="filter-action-btn">Clear</button>
+                  </div>
+                  <div class="filter-values">
+                    <label 
+                      *ngFor="let value of getFilteredUniqueValues('ratings')" 
+                      class="filter-value">
+                      <input 
+                        type="checkbox" 
+                        [checked]="filters.ratings.selectedValues.has(value)"
+                        (change)="toggleValue('ratings', value)">
+                      <span>{{ value }} ⭐</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </th>
+          <th>
+            <div class="header-cell">
+              <span>Created At</span>
+              <div class="filter-container">
+                <button 
+                  class="filter-btn" 
+                  [class.active]="hasActiveFilter('created_at')"
+                  (click)="toggleFilterDropdown('created_at', $event)">
+                  ▼
+                </button>
+                <div 
+                  class="filter-dropdown" 
+                  *ngIf="filters.created_at.isDropdownOpen"
+                  (click)="$event.stopPropagation()">
+                  <div class="filter-header">
+                    <input 
+                      type="text" 
+                      placeholder="Search Date..."
+                      [value]="filters.created_at.searchTerm"
+                      (input)="onSearchChange('created_at', $event.target.value)"
+                      class="filter-search">
+                  </div>
+                  <div class="filter-actions">
+                    <button (click)="selectAll('created_at')" class="filter-action-btn">Select All</button>
+                    <button (click)="deselectAll('created_at')" class="filter-action-btn">Deselect All</button>
+                    <button (click)="clearFilter('created_at')" class="filter-action-btn">Clear</button>
+                  </div>
+                  <div class="filter-values">
+                    <label 
+                      *ngFor="let value of getFilteredUniqueValues('created_at')" 
+                      class="filter-value">
+                      <input 
+                        type="checkbox" 
+                        [checked]="filters.created_at.selectedValues.has(value)"
+                        (change)="toggleValue('created_at', value)">
+                      <span>{{ value }}</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let feedback of filteredFeedbacks">
+          <td>{{ feedback.feedback_id }}</td>
+          <td>{{ feedback.user_id }}</td>
+          <td>{{ feedback.product_id }}</td>
+          <td>{{ getContentPreview(feedback.content, 50) }}</td>
+          <td>
+            <span [class]="getRatingClass(feedback.ratings)">
+              {{ getRatingStars(feedback.ratings) }} ({{ feedback.ratings }})
+            </span>
+          </td>
+          <td>{{ feedback.created_at }}</td>
+          <td class="actions">
+            <button (click)="viewFeedbackDetails(feedback)" class="action-btn view-btn">
+              View Details
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="filteredFeedbacks.length === 0">
+          <td colspan="7" class="no-results">No feedback found</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal hiển thị khi isModalOpen = true -->
+<div class="modal-overlay" *ngIf="isModalOpen">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h2>{{ isEditing ? 'Chỉnh sửa phản hồi' : 'Chi tiết phản hồi' }}</h2>
+      <button class="close-btn" (click)="closeModal()">×</button>
+    </div>
+    
+    <div class="modal-body">
+      <div class="customer-info">
+        <div class="form-group">
+          <label>Feedback ID:</label>
+          <input [value]="selectedFeedback?.feedback_id" class="read-only" readonly />
+        </div>
+
+        <div class="form-group">
+          <label>User ID:</label>
+          <input 
+            [(ngModel)]="editingFeedback!.user_id"
+            type="number"
+            [readonly]="!isEditing"
+            [class.read-only]="!isEditing" />
+        </div>
+
+        <div class="form-group">
+          <label>Product ID:</label>
+          <input 
+            [(ngModel)]="editingFeedback!.product_id"
+            type="number"
+            [readonly]="!isEditing"
+            [class.read-only]="!isEditing" />
+        </div>
+
+        <div class="form-group">
+          <label>Nội dung phản hồi:</label>
+          <textarea 
+            [(ngModel)]="editingFeedback!.content"
+            rows="4"
+            [readonly]="!isEditing"
+            [class.read-only]="!isEditing"
+            placeholder="Nhập nội dung phản hồi...">
+          </textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Đánh giá:</label>
+          <div class="rating-container">
+            <select 
+              [(ngModel)]="editingFeedback!.ratings"
+              [disabled]="!isEditing"
+              [class.read-only]="!isEditing">
+              <option value="1">1 ⭐</option>
+              <option value="2">2 ⭐⭐</option>
+              <option value="3">3 ⭐⭐⭐</option>
+              <option value="4">4 ⭐⭐⭐⭐</option>
+              <option value="5">5 ⭐⭐⭐⭐⭐</option>
+            </select>
+            <div class="rating-display" [class]="getRatingClass(editingFeedback?.ratings || 0)">
+              {{ getRatingStars(editingFeedback?.ratings || 0) }}
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Ngày tạo:</label>
+          <input [value]="selectedFeedback?.created_at" class="read-only" readonly />
+        </div>
+      </div>
+    </div>
+    
+    <!-- Modal Footer -->
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="closeModal()">Đóng</button>
+      
+      <button 
+        *ngIf="!isEditing" 
+        class="btn btn-primary" 
+        (click)="toggleEdit()">
+        Chỉnh sửa
+      </button>
+      
+      <div *ngIf="isEditing">
+        <button class="btn btn-success" (click)="saveFeedback()">Lưu</button>
+        <button class="btn btn-secondary" (click)="toggleEdit()">Hủy</button>
+      </div>
+      
+      <button class="btn btn-danger" (click)="deleteFeedbackFromModal()">Xoá</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIRA Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <h1>AIRA</h1>
+        </div>
+        <button class="menu-toggle">
+            <span class="material-icons">menu</span>
+        </button>
+        <nav>
+            <ul>
+                <li>
+                    <button class="nav-button" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                        <span class="material-icons">dashboard</span>
+                        <span>Dashboard</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-button" routerLink="/product" routerLinkActive="active">
+                        <span class="material-icons">inventory_2</span>
+                        <span>Products</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-button" routerLink="/customer" routerLinkActive="active">
+                        <span class="material-icons">people</span>
+                        <span>Customer</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-button" routerLink="/order" routerLinkActive="active">
+                        <span class="material-icons">shopping_bag</span>
+                        <span>Orders</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-button" routerLink="/feedback" routerLinkActive="active">
+                        <span class="material-icons">chat</span>
+                        <span>Feedback</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-button" routerLink="/blog" routerLinkActive="active">
+                        <span class="material-icons">article</span>
+                        <span>Blog</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-button" routerLink="/category" routerLinkActive="active">
+                        <span class="material-icons">category</span>
+                        <span>Categories</span>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+            </div>
+</body>
+</html>
