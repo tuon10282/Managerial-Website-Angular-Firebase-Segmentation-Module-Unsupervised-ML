@@ -140,7 +140,7 @@ export class CustomerSegmentationComponent {
         return 'segment-loyal';
       case 'potential':
         return 'segment-potential';
-      case 'Pay attention':
+      case 'Pay Attention':
         return 'segment-care';
       default:
         return 'segment-default';
