@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CustomerManagmentComponent } from './customer-managment/customer-managment.component';
 import { FeedbackComponent } from './feedback/feedback.component';
+import { CustomerSegmentationComponent } from './customer-segmentation/customer-segmentation.component';
 
 const routes: Routes = [
   // { path: '', component: DashboardComponent },
@@ -10,6 +11,7 @@ const routes: Routes = [
   // { path: 'addproduct', component: AddProductComponent },
   // { path: 'addblog', component: AddBlogComponent },
   { path: 'customer', component: CustomerManagmentComponent },
+  { path: 'customer-segmentation', component: CustomerSegmentationComponent },
   // { path: 'order', component: OrderComponent }, 
   // { path: 'category', component: CategoryComponent }, 
   { path: 'feedback', component: FeedbackComponent }, 

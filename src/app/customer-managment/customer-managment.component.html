@@ -1,5 +1,15 @@
 <div class="container">
-  <h1 class="title">Customer Management</h1>
+  <div class="header-section">
+    <h1 class="title">Customer Management</h1>
+    
+    <!-- Navigation buttons -->
+    <div class="nav-buttons">
+      <button class="btn btn-segmentation" (click)="navigateToSegmentation()">
+        <span class="btn-icon">📊</span>
+        View Customer Segmentation
+      </button>
+    </div>
+  </div>
   
   <!-- Loading state -->
   <div *ngIf="loading" class="loading">Loading customers...</div>
@@ -471,4 +481,3 @@
     </div>
   </div>
 </div>
-

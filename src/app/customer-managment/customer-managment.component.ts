@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Firestore, collection, collectionData, deleteDoc, doc, updateDoc } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 
 export class Customer {
   constructor(
@@ -51,7 +52,11 @@ export class CustomerManagmentComponent implements OnInit {
     address: this.initFilter(),
   };
 
-  constructor(private firestore: Firestore) {}
+
+  constructor(private firestore: Firestore,
+        private router: Router,
+
+  ) {}
 
   ngOnInit(): void {
     this.loading = true;
@@ -287,4 +292,10 @@ export class CustomerManagmentComponent implements OnInit {
   hasActiveFilter(column: string): boolean {
     return this.filters[column].selectedValues.size !== this.filters[column].uniqueValues.length;
   }
+  //Routing
+  navigateToSegmentation() {
+  this.router.navigate(['/customer-segmentation']);
+  console.log('Navigating to Customer Segmentation...');
+}
+
 }

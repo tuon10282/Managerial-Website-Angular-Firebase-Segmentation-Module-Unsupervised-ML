@@ -10,6 +10,7 @@ import { PannelComponent } from './pannel/pannel.component';
 import { FormsModule } from '@angular/forms';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { CommonModule } from '@angular/common';
+import { CustomerSegmentationComponent } from './customer-segmentation/customer-segmentation.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { CommonModule } from '@angular/common';
     CustomerManagmentComponent,
     PannelComponent,
     FeedbackComponent,
+    CustomerSegmentationComponent,
   ],
   imports: [
     BrowserModule,

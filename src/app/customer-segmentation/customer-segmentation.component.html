@@ -1,0 +1,152 @@
+<div class="segmentation-container">
+  <div class="main-card">
+    <h1 class="page-title">RFM Segmentation Analysis</h1>
+    
+    <!-- Control Panel -->
+    <div class="control-panel">
+      <div class="button-group">
+        <button 
+          (click)="runAnalysis()"
+          [disabled]="isRunning"
+          class="btn btn-primary"
+          [class.btn-loading]="isRunning">
+          <span *ngIf="isRunning" class="spinner"></span>
+          {{ isRunning ? 'Đang phân tích...' : 'Chạy RFM Analysis' }}
+        </button>
+        
+        <button 
+          (click)="loadSegmentations()"
+          [disabled]="isLoading"
+          class="btn btn-success"
+          [class.btn-loading]="isLoading">
+          <span *ngIf="isLoading" class="spinner"></span>
+          {{ isLoading ? 'Đang tải...' : 'Tải dữ liệu' }}
+        </button>
+
+        <button 
+          (click)="checkSchedule()"
+          class="btn btn-warning">
+          Kiểm tra lịch trình
+        </button>
+      </div>
+
+      <!-- Schedule Status -->
+      <div *ngIf="shouldRun" class="schedule-alert">
+        ⚠️ Cần chạy segmentation mới (đã quá 7 ngày)
+      </div>
+    </div>
+
+    <!-- Status Messages -->
+    <div *ngIf="statusMessage" class="status-message" [ngClass]="'status-' + statusType">
+      <div class="status-content">
+        <span class="status-icon">
+          <span *ngIf="statusType === 'success'">✅</span>
+          <span *ngIf="statusType === 'error'">❌</span>
+          <span *ngIf="statusType === 'info'">ℹ️</span>
+        </span>
+        {{ statusMessage }}
+      </div>
+    </div>
+
+    <!-- Summary Stats -->
+    <div *ngIf="segmentations.length > 0" class="stats-grid">
+      <div class="stat-card stat-vip">
+        <h3>VIP</h3>
+        <p class="stat-number">{{ getSegmentCount('VIP') }}</p>
+        <span class="stat-label">khách hàng</span>
+      </div>
+      <div class="stat-card stat-loyal">
+        <h3>Trung thành</h3>
+        <p class="stat-number">{{ getSegmentCount('Loyal') }}</p>
+        <span class="stat-label">khách hàng</span>
+      </div>
+      <div class="stat-card stat-potential">
+        <h3>Tiềm năng</h3>
+        <p class="stat-number">{{ getSegmentCount('Potential') }}</p>
+        <span class="stat-label">khách hàng</span>
+      </div>
+      <div class="stat-card stat-care">
+        <h3>Cần chăm sóc</h3>
+        <p class="stat-number">{{ getSegmentCount('Pay attetion') }}</p>
+        <span class="stat-label">khách hàng</span>
+      </div>
+    </div>
+
+
+    <!-- Segment Filter -->
+    <div *ngIf="segmentations.length > 0" class="filter-section">
+      <label class="filter-label">Lọc theo phân khúc:</label>
+      <select 
+        [(ngModel)]="selectedSegment" 
+        (ngModelChange)="filterBySegment()"
+        class="filter-select">
+        <option value="">Tất cả ({{ segmentations.length }})</option>
+        <option value="VIP">VIP ({{ getSegmentCount('VIP') }})</option>
+        <option value="Trung thành">Trung thành ({{ getSegmentCount('Loyal') }})</option>
+        <option value="Tiềm năng">Tiềm năng ({{ getSegmentCount('Potential') }})</option>
+        <option value="Cần chăm sóc">Cần chăm sóc ({{ getSegmentCount('Pay attetion') }})</option>
+      </select>
+    </div>
+
+    <!-- Data Table -->
+    <div *ngIf="displayedSegmentations.length > 0" class="table-container">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>User ID</th>
+            <th>Segment</th>
+            <th>Cluster</th>
+            <th>Recency</th>
+            <th>Frequency</th>
+            <th>Monetary</th>
+            <th>RFM Score</th>
+            <th>Created At</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of displayedSegmentations; let i = index">
+            <td class="user-id">{{ item.user_id }}</td>
+            <td>
+              <span class="segment-badge" [ngClass]="getSegmentClass(item.segment)">
+                {{ item.segment }}
+              </span>
+            </td>
+            <td class="cluster-id">{{ item.cluster_id }}</td>
+            <td class="recency">{{ item.recency }} ngày</td>
+            <td class="frequency">{{ item.frequency }}</td>
+            <td class="monetary">{{ formatCurrency(item.monetary) }}</td>
+            <td class="rfm-score">{{ item.rfm_score }}</td>
+            <td class="created-at">{{ formatDate(item.created_at) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="segmentations.length === 0 && !isLoading" class="empty-state">
+      <div class="empty-icon">📊</div>
+      <h3>Chưa có dữ liệu phân khúc</h3>
+      <p>Nhấn "Chạy RFM Analysis" để bắt đầu phân tích khách hàng</p>
+      <button (click)="runAnalysis()" class="btn btn-primary">
+        Chạy Analysis ngay
+      </button>
+    </div>
+
+    <!-- Test Customer Section -->
+    <div class="test-section">
+      <h3>Test Customer</h3>
+      <div class="test-input-group">
+        <input 
+          #customerInput
+          type="text" 
+          placeholder="Nhập User ID để test"
+          class="test-input">
+        <button 
+          (click)="testCustomerSegmentation(customerInput.value)"
+          class="btn btn-outline">
+          Test
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
