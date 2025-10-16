@@ -1,59 +1,63 @@
-# MyApp
+# 🌐 Managerial Website | Angular + Firebase + K-Means Segmentation
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.7.
+## 📘 Overview
+A managerial website designed to support data-driven decision-making by visualizing user behavior and business metrics.  
+The system applies **K-Means clustering** to segment customers based on purchasing patterns, helping managers identify key user groups and optimize marketing strategies.
 
-## Development server
+---
 
-To start a local development server, run:
+## 🎯 Objectives
+- Develop an **admin portal** for monitoring users, products, and transactions.  
+- Implement **unsupervised learning (K-Means)** to cluster customers by behavioral attributes.  
+- Visualize customer insights and KPI dashboards for managerial use.  
 
-```bash
-ng serve
-```
+---
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 💪 Key Contributions
+### 🧩 Project Management
+- Managed the full project lifecycle: planning, execution, and delivery.  
+- Defined the architecture connecting **Angular frontend**, **Flask ML API**, and **Firebase database**.  
+- Ensured synchronization between ML outputs and dashboard data.  
 
-## Code scaffolding
+### 💻 Frontend Development (Angular, TypeScript, HTML, CSS)
+- Built dynamic dashboard and admin pages (CRUD for products, customers, orders).  
+- Integrated charts to visualize **customer segmentation results** and business KPIs.  
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### 🤖 Machine Learning Module (Python)
+- Implemented **K-Means clustering** to segment users based on recency, frequency, and monetary data.  
 
-```bash
-ng generate component component-name
-```
+### 🗄️ Database Integration (Firebase)
+- Designed Firebase Database structure for customer and transaction data.  
+- Ensured smooth synchronization between data source and ML module.  
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## 🧰 Tools & Technologies
+- **Frontend:** Angular, TypeScript, HTML, CSS  
+- **Machine Learning:** K-Means  
+- **Database:** Firebase Database  
+- **Visualization:** Chart.js  
+- **Testing:** Postman, Firebase Console  
 
-## Building
+---
 
-To build the project run:
+## 👩‍💻 Team Role
+**Role:** Project Leader & ML Integrator  
+- Directed a 3-member team focusing on data pipeline and ML integration.  
+- Designed K-Means clustering pipeline and integrated API responses into dashboard visualization.  
 
-```bash
-ng build
-```
+---
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## 🧪 Features Summary
+- 📊 Admin Dashboard with Real-time Data  
+- 👥 Customer Segmentation (K-Means Clustering)  
+- 🧾 CRUD Management for Products & Users  
+- 🔄 ML–Database Synchronization via API  
 
-## Running unit tests
+---
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## 🏁 Project Duration
+**Timeline:** 2 months  
+**Methodology:** Agile (Sprint-based progress tracking)
 
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
